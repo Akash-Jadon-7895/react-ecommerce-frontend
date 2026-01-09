@@ -111,6 +111,9 @@
   padding-left: 13px;
   padding-right: 13px;
 }
+.orders-link.active{
+  text-decoration: underline;
+}
 
 .header .orders-text {
   display: block;
@@ -124,6 +127,7 @@
   align-items: center;
   position: relative;
 }
+
 
 .header .cart-icon {
   width: 38px;
