@@ -5,15 +5,19 @@ import { HomePage } from './pages/home/HomePage';
 import { CheckoutPage } from './pages/checkout/CheckoutPage';
 import { OrdersPage } from './pages/orders/OrdersPage';
 import { TrackingPage } from './pages/TrackingPage';
-import {NotFoundPage} from './pages/NotFoundPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 import './App.css'
 
 function App() {
   const [cart, setCart] = useState([]);
   useEffect(() => {
-    axios.get('/api/cart-items?expand=product').then((response) => {
+    const fetchAppdata = async () => {
+      const response = await axios.get('/api/cart-items?expand=product');
       setCart(response.data);
-    });
+    }
+
+    fetchAppdata();
+
   }, []);
   return (
     <Routes>
