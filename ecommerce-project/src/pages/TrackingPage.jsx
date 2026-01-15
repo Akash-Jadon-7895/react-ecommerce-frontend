@@ -3,12 +3,12 @@ import { Header } from '../components/Header';
 import './TrackingPage.css'
 
 
-export function TrackingPage() {
+export function TrackingPage({cart}) {
   return (
     <>
       <title>Tracking</title>
       <link rel="icon" type="image/svg+xml" href="/tracking-favicon.png.svg" />
-      <Header />
+      <Header cart={cart} />
 
       <div class="tracking-page">
         <div class="order-tracking">

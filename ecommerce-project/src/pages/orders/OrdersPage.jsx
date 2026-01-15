@@ -1,9 +1,8 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Header } from '../../components/Header';
-import { OrderHeader } from './OrderHeader';
 import './OrdersPage.css';
-import { OrderDetailsGrid } from './OrderDetailsGrid';
+import { OrdersGrid } from './OrdersGrid';
 
 
 
@@ -27,20 +26,7 @@ export function OrdersPage({ cart }) {
       <div className="orders-page">
         <div className="page-title">Your Orders</div>
 
-        <div className="orders-grid">
-          {orders.map((order) => {
-            return (
-
-              <div key={order.id} className="order-container">
-
-                <OrderHeader order={order} />
-
-                <OrderDetailsGrid order={order} />
-              </div>
-
-            );
-          })}
-        </div>
+        <OrdersGrid orders={orders} />
       </div>
     </>
   );
