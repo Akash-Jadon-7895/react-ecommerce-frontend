@@ -4,7 +4,9 @@ import { Link } from 'react-router';
 import { Header } from '../../components/Header';
 import { useParams } from 'react-router';
 import dayjs from 'dayjs';
+import { TrackingProgress } from './TrackingProgress';
 import './TrackingPage.css'
+
 
 
 export function TrackingPage({ cart }) {
@@ -22,10 +24,10 @@ export function TrackingPage({ cart }) {
   }, [orderId]);
   console.log(order);
 
-  if(!order) return null;
+  if (!order) return null;
 
-  const currentProduct = order.products.find((product) => {
-    return productId === product.id;
+  const currentItem = order.products.find((item) => {
+    return item.product.id === productId;
   });
 
   return (
@@ -41,34 +43,20 @@ export function TrackingPage({ cart }) {
           </Link>
 
           <div className="delivery-date">
-            Arriving on {dayjs(order.estimatedDeliveryTimeMs).format('dddd, MMMM D')}
+            Arriving on {dayjs(currentItem.estimatedDeliveryTimeMs).format('dddd, MMMM D')}
           </div>
 
           <div className="product-info">
-            {currentProduct.name}
+            {currentItem.product.name}
           </div>
 
           <div className="product-info">
-            Quantity: 1
+            Quantity: {currentItem.quantity}
           </div>
 
-          <img className="product-image" src="images/products/athletic-cotton-socks-6-pairs.jpg" />
-          
-          <div className="progress-labels-container">
-            <div className="progress-label">
-              Preparing
-            </div>
-            <div className="progress-label current-status">
-              Shipped
-            </div>
-            <div className="progress-label">
-              Delivered
-            </div>
-          </div>
+          <img className="product-image" src={currentItem.product.image} />
 
-          <div className="progress-bar-container">
-            <div className="progress-bar"></div>
-          </div>
+          <TrackingProgress deliveryTimeMs={currentItem.estimatedDeliveryTimeMs} orderTimeMs={order.orderTimeMs} />
         </div>
       </div>
     </>
