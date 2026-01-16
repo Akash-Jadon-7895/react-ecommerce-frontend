@@ -6,7 +6,7 @@ import { OrdersGrid } from './OrdersGrid';
 
 
 
-export function OrdersPage({ cart }) {
+export function OrdersPage({cart}) {
   const [orders, setOrders] = useState([]);
   useEffect(() => {
     const fetchOrdersData = async () => {
