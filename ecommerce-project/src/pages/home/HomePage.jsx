@@ -6,6 +6,7 @@ import './HomePage.css'
 
 export function HomePage({ cart, loadCart }) {
   const [products, setProducts] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const getHomeData = async () => {
@@ -16,14 +17,17 @@ export function HomePage({ cart, loadCart }) {
     getHomeData();
   }, []);
 
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <>
       <title>Ecommerce Project</title>
       <link rel="icon" type="image/svg+xml" href="/home-favicon.png" />
-      <Header cart={cart} />
+      <Header cart={cart} onSearch={setSearch} />
       <div className="home-page">
-        <ProductsGrid products={products} loadCart={loadCart} />
+        <ProductsGrid products={filteredProducts} loadCart={loadCart} />
       </div>
     </>
   );

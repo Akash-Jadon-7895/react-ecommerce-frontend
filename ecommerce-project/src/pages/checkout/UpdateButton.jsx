@@ -28,6 +28,14 @@ export function UpdateButton({ cartItem, loadCart }) {
             value={quantity}
             onChange={(e) => setQuantity(Number(e.target.value))}
             className="quantity-label"
+            onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              saveQuantity();
+            } else if (e.key === 'Escape') {
+              setQuantity(cartItem.quantity);
+              setIsUpdating(false);
+            }
+          }}
           />
         ) : (
           <span className="quantity-label">

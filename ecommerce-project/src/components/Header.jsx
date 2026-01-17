@@ -5,7 +5,7 @@ import MobileLogoWhite from '../assets/images/mobile-logo-white.png';
 import CartIcon from '../assets/images/icons/cart-icon.png';
 import SearchIcon from '../assets/images/icons/search-icon.png';
 
-export function Header({cart}) {
+export function Header({cart, onSearch}) {
   let totalQuantity = 0;
   cart.forEach((cartItem) => {
     totalQuantity += cartItem.quantity;
@@ -23,7 +23,7 @@ export function Header({cart}) {
       </div>
 
       <div className="middle-section">
-        <input className="search-bar" type="text" placeholder="Search" />
+        <input className="search-bar" type="text" placeholder="Search" onChange={(e) => onSearch(e.target.value)} />
 
         <button className="search-button">
           <img className="search-icon" src={SearchIcon} />
