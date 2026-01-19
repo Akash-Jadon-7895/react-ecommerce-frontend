@@ -61,4 +61,36 @@ describe('Product component', () => {
     );
     expect(loadcart).toHaveBeenCalled();
   });
+
+  it('sends selected quantity when adding to cart', async () => {
+    render(<Product product={product} loadCart={loadcart} />);
+
+    const user = userEvent.setup();
+
+    await user.selectOptions(
+      screen.getByRole('combobox'),
+      '3'
+    );
+
+    await user.click(screen.getByTestId('add-to-cart-button'));
+
+    expect(axios.post).toHaveBeenCalledWith(
+      '/api/cart-items',
+      {
+        productId: product.id,
+        quantity: 3
+      }
+    );
+  });
+
+  it('shows added confirmation after adding to cart', async () => {
+    render(<Product product={product} loadCart={loadcart} />);
+
+    const user = userEvent.setup();
+    await user.click(screen.getByTestId('add-to-cart-button'));
+
+    expect(screen.getByText('Added')).toBeInTheDocument();
+  });
+
+
 });
