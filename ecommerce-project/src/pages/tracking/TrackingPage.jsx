@@ -54,7 +54,7 @@ export function TrackingPage({ cart }) {
             Quantity: {currentItem.quantity}
           </div>
 
-          <img className="product-image" src={currentItem.product.image} />
+          <img className="product-image" data-testid="product-image" src={currentItem.product.image} />
 
           <TrackingProgress deliveryTimeMs={currentItem.estimatedDeliveryTimeMs} orderTimeMs={order.orderTimeMs} />
         </div>
