@@ -5,7 +5,16 @@ import MobileLogoWhite from '../assets/images/mobile-logo-white.png';
 import CartIcon from '../assets/images/icons/cart-icon.png';
 import SearchIcon from '../assets/images/icons/search-icon.png';
 
-export function Header({cart, onSearch}) {
+type HeaderProps = {
+  cart: {
+  productId: string;
+  quantity: number;
+  deliveryOptionId: string;
+}[], onSearch: (searchTerm: string) => void
+};
+
+
+export function Header({cart, onSearch}: HeaderProps) {
   let totalQuantity = 0;
   cart.forEach((cartItem) => {
     totalQuantity += cartItem.quantity;
