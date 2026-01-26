@@ -35,13 +35,13 @@ TypeScript migration is currently in progress.
 
 ## 🧱 Project Structure
 
-src/
-├── assets/
-├── components/
-├── pages/
-├── utils/
-├── tests/
-└── App.tsx
+- src/
+- ├── assets/
+- ├── components/
+- ├── pages/
+- ├── utils/
+- ├── tests/
+- └── App.tsx
 
 
 ⚠️ **Note:** Some files are still JavaScript and will be migrated to TypeScript.
