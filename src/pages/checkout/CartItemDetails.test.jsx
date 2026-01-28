@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import axios from 'axios';
+import { api } from "../../services/api";
 import { CartItemDetails } from './CartItemDetails';
 
-vi.mock('axios');
+vi.mock('api');
 
 vi.mock('./UpdateButton', () => ({
   UpdateButton: () => <div data-testid="update-button" />
@@ -31,7 +31,7 @@ describe('CartItemDetails component', () => {
 
   beforeEach(() => {
     loadCart = vi.fn();
-    axios.delete.mockResolvedValue({});
+    api.delete.mockResolvedValue({});
   });
 
   it('renders product info and deletes item', async () => {
@@ -53,8 +53,8 @@ describe('CartItemDetails component', () => {
 
     await user.click(screen.getByText('Delete'));
 
-    expect(axios.delete).toHaveBeenCalledWith(
-      '/api/cart-items/product-1'
+    expect(api.delete).toHaveBeenCalledWith(
+      '/cart-items/product-1'
     );
 
     expect(loadCart).toHaveBeenCalled();

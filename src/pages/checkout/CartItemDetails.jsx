@@ -1,4 +1,4 @@
-import axios from "axios";
+import { api } from "../../services/api";
 import { formatMoney } from "../../utils/money";
 import { DeliveryOptions } from "./DeliveryOptions";
 import { UpdateButton } from "./UpdateButton";
@@ -6,7 +6,7 @@ import { UpdateButton } from "./UpdateButton";
 export function CartItemDetails({ cartItem, deliveryOptions, loadCart}) {
 
   const deleteCartItem = async () => {
-    await axios.delete(`/api/cart-items/${cartItem.productId}`)
+    await api.delete(`/cart-items/${cartItem.productId}`)
     await loadCart();
   }
 

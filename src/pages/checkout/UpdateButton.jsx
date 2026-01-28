@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import { api } from "../../services/api";
 
 export function UpdateButton({ cartItem, loadCart }) {
   const [isUpdating, setIsUpdating] = useState(false);
@@ -8,7 +8,7 @@ export function UpdateButton({ cartItem, loadCart }) {
   const saveQuantity = async () => {
     if (quantity < 1 || quantity > 100) return;
 
-    await axios.put(`/api/cart-items/${cartItem.productId}`, {
+    await api.put(`/cart-items/${cartItem.productId}`, {
       quantity
     });
 

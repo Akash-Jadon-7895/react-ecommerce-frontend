@@ -1,9 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import axios from 'axios';
+import { api } from "../../services/api";
 import { OrdersPage } from './OrdersPage';
 
-vi.mock('axios');
+vi.mock('api');
 
 vi.mock('../../components/Header', () => ({
   Header: () => <div data-testid="header" />
@@ -19,7 +19,7 @@ describe('OrdersPage component', () => {
   beforeEach(() => {
     loadCart = vi.fn();
 
-    axios.get.mockResolvedValue({
+    api.get.mockResolvedValue({
       data: []
     });
   });
@@ -31,8 +31,8 @@ describe('OrdersPage component', () => {
     expect(screen.getByTestId('header')).toBeInTheDocument();
     expect(screen.getByTestId('orders-grid')).toBeInTheDocument();
 
-    expect(axios.get).toHaveBeenCalledWith(
-      '/api/orders?expand=products'
+    expect(api.get).toHaveBeenCalledWith(
+      '/orders?expand=products'
     );
   });
 });

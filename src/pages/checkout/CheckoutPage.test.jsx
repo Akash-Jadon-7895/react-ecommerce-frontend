@@ -1,9 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import axios from 'axios';
+import { api } from "../../services/api";
 import { CheckoutPage } from './CheckoutPage';
 
-vi.mock('axios');
+vi.mock('api');
 
 vi.mock('./CheckoutHeader', () => ({
   CheckoutHeader: () => <div data-testid="checkout-header" />
@@ -28,11 +28,11 @@ describe('CheckoutPage component', () => {
   beforeEach(() => {
     loadCart = vi.fn();
 
-    axios.get.mockImplementation((url) => {
-      if (url.startsWith('/api/delivery-options')) {
+    api.get.mockImplementation((url) => {
+      if (url.startsWith('/delivery-options')) {
         return Promise.resolve({ data: [] });
       }
-      if (url === '/api/payment-summary') {
+      if (url === '/payment-summary') {
         return Promise.resolve({ data: {} });
       }
     });
@@ -47,9 +47,9 @@ describe('CheckoutPage component', () => {
     expect(screen.getByTestId('order-summary')).toBeInTheDocument();
     expect(screen.getByTestId('payment-summary')).toBeInTheDocument();
 
-    expect(axios.get).toHaveBeenCalledWith(
-      '/api/delivery-options?expand=estimatedDeliveryTime'
+    expect(api.get).toHaveBeenCalledWith(
+      '/delivery-options?expand=estimatedDeliveryTime'
     );
-    expect(axios.get).toHaveBeenCalledWith('/api/payment-summary');
+    expect(api.get).toHaveBeenCalledWith('/payment-summary');
   });
 });

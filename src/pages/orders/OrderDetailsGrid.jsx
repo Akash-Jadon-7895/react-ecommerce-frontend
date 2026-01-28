@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { Link } from 'react-router';
-import axios from "axios";
+import { api } from "../../services/api";
 import dayjs from "dayjs";
 import BuyAgainIcon from '../../assets/images/icons/buy-again.png';
 
@@ -10,7 +10,7 @@ export function OrderDetailsGrid({ order, loadCart }) {
     <div className="order-details-grid">
       {order.products.map((orderProduct) => {
         const addToCart = async () => {
-          await axios.post('/api/cart-items', {
+          await api.post('/cart-items', {
             productId: orderProduct.product.id,
             quantity: orderProduct.quantity
           });

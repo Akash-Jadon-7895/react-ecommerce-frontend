@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { api } from './services/api'
 import { HomePage } from './pages/home/HomePage';
 import { CheckoutPage } from './pages/checkout/CheckoutPage';
 import { OrdersPage } from './pages/orders/OrdersPage';
@@ -12,7 +12,7 @@ function App() {
   const [cart, setCart] = useState([]);
 
   const loadCart = async () => {
-    const response = await axios.get('/api/cart-items?expand=product');
+    const response = await api.get('/cart-items?expand=product');
     setCart(response.data);
   }
   useEffect(() => {

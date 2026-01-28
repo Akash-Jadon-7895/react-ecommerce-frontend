@@ -3,12 +3,12 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router';
 import { useLocation } from 'react-router';
-import axios from 'axios';
+import { api } from "../../services/api";
 
 import { PaymentSummary } from './PaymentSummary';
 import { formatMoney } from '../../utils/money';
 
-vi.mock('axios');
+vi.mock('api');
 
 function Location() {
   const location = useLocation();
@@ -67,7 +67,7 @@ describe('PaymentSummary component', () => {
 
   it('places order, loads cart, and navigates to /orders', async () => {
     const loadCart = vi.fn();
-    axios.post.mockResolvedValue({});
+    api.post.mockResolvedValue({});
 
     render(
       <MemoryRouter initialEntries={['/checkout']}>
@@ -85,7 +85,7 @@ describe('PaymentSummary component', () => {
       screen.getByRole('button', { name: /place your order/i })
     );
 
-    expect(axios.post).toHaveBeenCalledWith('/api/orders');
+    expect(api.post).toHaveBeenCalledWith('/orders');
     expect(loadCart).toHaveBeenCalled();
     expect(screen.getByTestId('url-path'))
       .toHaveTextContent('/orders');

@@ -8,18 +8,18 @@ export default defineConfig({
       plugins: [['babel-plugin-react-compiler', { target: '19' }]],
     },
   })],
-  server: {
-    proxy: {
-      '/api': {
-        target: 'https://react-ecommerce-backend-o6ih.onrender.com',
-        changeOrigin: true,
-        secure: false,
-      },
-      '/images': {
-        target: 'https://react-ecommerce-backend-o6ih.onrender.com',
-        changeOrigin: true,
-        secure: false,
-      },
-    }
-  }
+  // server: {
+  //   proxy: {
+  //     '': {
+  //       target: 'https://react-ecommerce-backend-o6ih.onrender.com',
+  //       changeOrigin: true,
+  //       secure: false,
+  //     },
+  //     '/images': {
+  //       target: 'https://react-ecommerce-backend-o6ih.onrender.com',
+  //       changeOrigin: true,
+  //       secure: false,
+  //     },
+  //   }
+  // }
 })

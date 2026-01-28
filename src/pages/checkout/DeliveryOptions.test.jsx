@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import axios from 'axios';
+import { api } from "../../services/api";
 import { DeliveryOptions } from './DeliveryOptions';
 
-vi.mock('axios');
+vi.mock('api');
 
 describe('DeliveryOptions component', () => {
   const cartItem = {
@@ -29,7 +29,7 @@ describe('DeliveryOptions component', () => {
 
   beforeEach(() => {
     loadCart = vi.fn();
-    axios.put.mockResolvedValue({});
+    api.put.mockResolvedValue({});
   });
 
   it('renders delivery options and updates selection', async () => {
@@ -49,8 +49,8 @@ describe('DeliveryOptions component', () => {
 
     await user.click(screen.getAllByRole('radio')[1]);
 
-    expect(axios.put).toHaveBeenCalledWith(
-      '/api/cart-items/product-1',
+    expect(api.put).toHaveBeenCalledWith(
+      '/cart-items/product-1',
       { deliveryOptionId: 'option-2' }
     );
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { api } from "../../services/api";
 import { Link } from 'react-router';
 import { Header } from '../../components/Header';
 import { useParams } from 'react-router';
@@ -15,7 +15,7 @@ export function TrackingPage({ cart }) {
 
   useEffect(() => {
     const fetchOrderData = async () => {
-      let response = await axios.get(`/api/orders/${orderId}?expand=products`);
+      let response = await api.get(`/orders/${orderId}?expand=products`);
       setOrder(response.data);
 
     }

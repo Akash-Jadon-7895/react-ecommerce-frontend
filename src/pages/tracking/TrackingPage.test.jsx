@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
-import axios from 'axios';
+import { api } from "../../services/api";
 import { MemoryRouter, Route, Routes } from 'react-router';
 import { TrackingPage } from './TrackingPage';
 
-vi.mock('axios');
+vi.mock('api');
 
 describe('TrackingPage component', () => {
 
@@ -29,7 +29,7 @@ describe('TrackingPage component', () => {
   };
 
   beforeEach(() => {
-    axios.get.mockResolvedValue({ data: order });
+    api.get.mockResolvedValue({ data: order });
   });
 
   it('renders tracking page with product info and progress', async () => {
@@ -42,7 +42,7 @@ describe('TrackingPage component', () => {
     );
 
     await waitFor(() => {
-      expect(axios.get).toHaveBeenCalledWith('/api/orders/order-1?expand=products');
+      expect(api.get).toHaveBeenCalledWith('/orders/order-1?expand=products');
     });
 
     expect(screen.getByText('Test Product')).toBeInTheDocument();

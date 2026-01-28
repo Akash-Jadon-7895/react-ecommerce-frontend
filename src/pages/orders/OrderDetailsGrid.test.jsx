@@ -2,11 +2,11 @@ import { it, expect, describe, vi, beforeEach } from 'vitest';
 import { render, screen} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router';
-import axios from 'axios';
+import { api } from "../../services/api";
 import dayjs from 'dayjs';
 import { OrderDetailsGrid } from './OrderDetailsGrid';
 
-vi.mock('axios');
+vi.mock('api');
 
 describe('OrderDetailsGrid component', () => {
   let order;
@@ -63,7 +63,7 @@ describe('OrderDetailsGrid component', () => {
     const user = userEvent.setup();
     await user.click(screen.getByRole('button', { name: /add to cart/i }));
 
-    expect(axios.post).toHaveBeenCalledWith('/api/cart-items', {
+    expect(api.post).toHaveBeenCalledWith('/cart-items', {
       productId: 'prod-1',
       quantity: 2
     });

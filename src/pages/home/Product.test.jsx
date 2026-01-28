@@ -1,10 +1,10 @@
 import { it, expect, describe, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import axios from 'axios';
+import { api } from "../../services/api";
 import { Product } from './Product';
 
-vi.mock('axios');
+vi.mock('api');
 
 describe('Product component', () => {
   let product;
@@ -52,8 +52,8 @@ describe('Product component', () => {
     const addToCartButton = screen.getByTestId('add-to-cart-button');
     await user.click(addToCartButton);
 
-    expect(axios.post).toHaveBeenCalledWith(
-      '/api/cart-items',
+    expect(api.post).toHaveBeenCalledWith(
+      '/cart-items',
       {
         productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
         quantity: 1
@@ -74,8 +74,8 @@ describe('Product component', () => {
 
     await user.click(screen.getByTestId('add-to-cart-button'));
 
-    expect(axios.post).toHaveBeenCalledWith(
-      '/api/cart-items',
+    expect(api.post).toHaveBeenCalledWith(
+      '/cart-items',
       {
         productId: product.id,
         quantity: 3
