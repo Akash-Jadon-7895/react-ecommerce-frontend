@@ -4,7 +4,14 @@ import Logo from '../../assets/images/logo.png';
 import MobileLogo from '../../assets/images/mobile-logo.png';
 import CheckoutLockIcon from '../../assets/images/icons/checkout-lock-icon.png';
 
-export function CheckoutHeader({cart}) {
+type CheckoutHeaderProps = {
+  cart: {
+    totalQuantity: number;
+  };
+};
+
+export function CheckoutHeader({cart}: CheckoutHeaderProps) {
+  
   return (
     <div className="checkout-header">
       <div className="header-content">
