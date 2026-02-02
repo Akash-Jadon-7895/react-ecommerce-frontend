@@ -2,7 +2,45 @@ import { formatMoney } from "../../utils/money";
 import dayjs from "dayjs";
 import { api } from "../../services/api";
 
-export function DeliveryOptions({ deliveryOptions, cartItem, loadCart }) {
+export type Product = {
+  id: string;
+  name: string;
+  image: string;
+  priceCents: number;
+  rating: {
+    stars: number;
+    count: number;
+  };
+  keywords: string[];
+};
+
+export type CartItem = {
+  id: number;
+  productId: string;
+  product: Product;
+  quantity: number;
+  deliveryOptionId: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type DeliveryOption = {
+  id: string;
+  deliveryDays: number;
+  priceCents: number;
+  createdAt: string;
+  updatedAt: string;
+  estimatedDeliveryTimeMs?: number;
+};
+
+
+type DeliveryOptionsProps = {
+  deliveryOptions: DeliveryOption[];
+  cartItem: CartItem;
+  loadCart: () => Promise<void>;
+};
+
+export function DeliveryOptions({ deliveryOptions, cartItem, loadCart }: DeliveryOptionsProps) {
   return (
     <div className="delivery-options">
       <div className="delivery-options-title">
@@ -16,14 +54,14 @@ export function DeliveryOptions({ deliveryOptions, cartItem, loadCart }) {
         }
 
         const updateDeliveryOption = async () => {
-          await api.put(`/cart-items/${cartItem.productId}`,{
+          await api.put(`/cart-items/${cartItem.productId}`, {
             deliveryOptionId: deliveryOption.id
           });
           await loadCart();
         };
         return (
           <div key={deliveryOption.id} className="delivery-option" onClick={updateDeliveryOption}>
-            <input type="radio" checked={deliveryOption.id === cartItem.deliveryOptionId} onChange={() => {}}
+            <input type="radio" checked={deliveryOption.id === cartItem.deliveryOptionId} onChange={() => { }}
               className="delivery-option-input"
               name={`delivery-option-${cartItem.productId}`} />
             <div>
