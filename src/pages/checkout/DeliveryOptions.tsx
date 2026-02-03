@@ -1,37 +1,7 @@
 import { formatMoney } from "../../utils/money";
 import dayjs from "dayjs";
 import { api } from "../../services/api";
-
-export type Product = {
-  id: string;
-  name: string;
-  image: string;
-  priceCents: number;
-  rating: {
-    stars: number;
-    count: number;
-  };
-  keywords: string[];
-};
-
-export type CartItem = {
-  id: number;
-  productId: string;
-  product: Product;
-  quantity: number;
-  deliveryOptionId: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type DeliveryOption = {
-  id: string;
-  deliveryDays: number;
-  priceCents: number;
-  createdAt: string;
-  updatedAt: string;
-  estimatedDeliveryTimeMs?: number;
-};
+import type { CartItem, DeliveryOption } from "../../types/checkout";
 
 
 type DeliveryOptionsProps = {

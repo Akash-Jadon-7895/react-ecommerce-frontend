@@ -4,10 +4,15 @@ import { CheckoutHeader } from './CheckoutHeader';
 import { OrderSummary } from './OrderSummary';
 import { PaymentSummary } from './PaymentSummary';
 import './CheckoutPage.css';
+import type { Cart } from '../../types/checkout';
+
+type CheckoutPageProps = {
+  cart: Cart;
+  loadCart: () => Promise<void>;
+};
 
 
-
-export function CheckoutPage({ cart, loadCart }) {
+export function CheckoutPage({ cart, loadCart }: CheckoutPageProps) {
   const [deliveryOptions, setDeliveryOptions] = useState([]);
   const [paymentSummary, setPaymentSummary] = useState(null);
 
@@ -28,11 +33,16 @@ export function CheckoutPage({ cart, loadCart }) {
 
     fetchCheckoutData();
   }, [cart]);
+
+  const totalQuantity = cart.reduce(
+    (sum, item) => sum + item.quantity,
+    0
+  );
   return (
     <>
       <title>Checkout</title>
       <link rel="icon" type="image/svg+xml" href="/cart-favicon.png" />
-      <CheckoutHeader cart={cart} />
+      <CheckoutHeader totalQuantity={totalQuantity} />
       <div className="checkout-page">
         <div className="page-title">Review your order</div>
 

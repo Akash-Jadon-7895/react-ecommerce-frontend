@@ -5,12 +5,10 @@ import MobileLogo from '../../assets/images/mobile-logo.png';
 import CheckoutLockIcon from '../../assets/images/icons/checkout-lock-icon.png';
 
 type CheckoutHeaderProps = {
-  cart: {
-    totalQuantity: number;
-  };
+  totalQuantity: number;
 };
 
-export function CheckoutHeader({cart}: CheckoutHeaderProps) {
+export function CheckoutHeader({totalQuantity}: CheckoutHeaderProps) {
   
   return (
     <div className="checkout-header">
@@ -24,7 +22,7 @@ export function CheckoutHeader({cart}: CheckoutHeaderProps) {
 
         <div className="checkout-header-middle-section">
           Checkout (<Link className="return-to-home-link"
-            to="/">{cart.totalQuantity} items</Link>)
+            to="/">{totalQuantity} items</Link>)
         </div>
 
         <div className="checkout-header-right-section">

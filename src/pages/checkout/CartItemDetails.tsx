@@ -2,37 +2,8 @@ import { api } from "../../services/api";
 import { formatMoney } from "../../utils/money";
 import { DeliveryOptions } from "./DeliveryOptions";
 import { UpdateButton } from "./UpdateButton";
+import type { CartItem, DeliveryOption } from "../../types/checkout";
 
-type Product = {
-  id: string;
-  name: string;
-  image: string;
-  priceCents: number;
-  rating: {
-    stars: number;
-    count: number;
-  };
-  keywords: string[];
-};
-
-type CartItem = {
-  id: number;
-  productId: string;
-  product: Product;
-  quantity: number;
-  deliveryOptionId: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-type DeliveryOption = {
-  id: string;
-  deliveryDays: number;
-  priceCents: number;
-  createdAt: string;
-  updatedAt: string;
-  estimatedDeliveryTimeMs?: number;
-};
 
 type CartItemDetailsProps = {
   cartItem: CartItem;
