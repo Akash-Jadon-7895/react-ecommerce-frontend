@@ -2,8 +2,14 @@ import { api } from "../../services/api";
 import { useState } from "react";
 import { formatMoney } from "../../utils/money";
 import Checkmark from '../../assets/images/icons/checkmark.png';
+import type { Product } from "../../types/checkout";
 
-export function Product({ product, loadCart }) {
+type ProductProps = {
+  product: Product; 
+  loadCart: () => Promise<void>;
+};
+
+export function Product({ product, loadCart }: ProductProps) {
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
 
@@ -20,7 +26,7 @@ export function Product({ product, loadCart }) {
     await loadCart();
   };
 
-  const selectQuantity = (event) => {
+  const selectQuantity = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const quantitySelected = Number(event.target.value);
     setQuantity(quantitySelected);
   };

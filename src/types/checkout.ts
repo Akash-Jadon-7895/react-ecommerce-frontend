@@ -13,6 +13,8 @@ export type Product = {
   updatedAt: string;
 }
 
+export type Products = Product[];
+
 export type CartItem = {
   id: number;
   productId: Product["id"];

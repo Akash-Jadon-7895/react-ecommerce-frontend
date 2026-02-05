@@ -3,9 +3,15 @@ import { useEffect, useState } from 'react';
 import { Header } from '../../components/Header';
 import { ProductsGrid } from './ProductsGrid';
 import './HomePage.css'
+import type { Cart, Product } from '../../types/checkout';
 
-export function HomePage({ cart, loadCart }) {
-  const [products, setProducts] = useState([]);
+type HomePageProps = {
+  cart: Cart;
+  loadCart: () => Promise<void>;
+};
+
+export function HomePage({ cart, loadCart }: HomePageProps) {
+  const [products, setProducts] = useState<Product[]>([]);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
