@@ -3,10 +3,16 @@ import { useState, useEffect } from 'react';
 import { Header } from '../../components/Header';
 import './OrdersPage.css';
 import { OrdersGrid } from './OrdersGrid';
+import type { Cart } from '../../types/types';
+
+type OrdersPageProps = {
+  cart: Cart;
+  loadCart: () => Promise<void>;
+};
 
 
 
-export function OrdersPage({cart, loadCart}) {
+export function OrdersPage({cart, loadCart}: OrdersPageProps) {
   const [orders, setOrders] = useState([]);
   useEffect(() => {
     const fetchOrdersData = async () => {

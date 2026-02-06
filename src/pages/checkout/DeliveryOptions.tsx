@@ -1,7 +1,7 @@
 import { formatMoney } from "../../utils/money";
 import dayjs from "dayjs";
 import { api } from "../../services/api";
-import type { CartItem, DeliveryOption } from "../../types/checkout";
+import type { CartItem, DeliveryOption } from "../../types/types";
 
 
 type DeliveryOptionsProps = {

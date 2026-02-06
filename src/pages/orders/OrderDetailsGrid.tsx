@@ -3,8 +3,15 @@ import { Link } from 'react-router';
 import { api } from "../../services/api";
 import dayjs from "dayjs";
 import BuyAgainIcon from '../../assets/images/icons/buy-again.png';
+import type { Order } from '../../types/types';
 
-export function OrderDetailsGrid({ order, loadCart }) {
+
+type OrderDetailsGridProps = {
+  order: Order;
+  loadCart: () => Promise<void>;
+};
+
+export function OrderDetailsGrid({ order, loadCart }: OrderDetailsGridProps) {
 
   return (
     <div className="order-details-grid">

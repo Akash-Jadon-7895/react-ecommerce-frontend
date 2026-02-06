@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Header } from '../../components/Header';
 import { ProductsGrid } from './ProductsGrid';
 import './HomePage.css'
-import type { Cart, Product } from '../../types/checkout';
+import type { Cart, Product } from '../../types/types';
 
 type HomePageProps = {
   cart: Cart;

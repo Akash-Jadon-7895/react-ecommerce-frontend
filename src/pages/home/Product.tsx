@@ -2,7 +2,7 @@ import { api } from "../../services/api";
 import { useState } from "react";
 import { formatMoney } from "../../utils/money";
 import Checkmark from '../../assets/images/icons/checkmark.png';
-import type { Product } from "../../types/checkout";
+import type { Product } from "../../types/types";
 
 type ProductProps = {
   product: Product; 

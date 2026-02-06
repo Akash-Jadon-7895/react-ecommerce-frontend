@@ -1,5 +1,5 @@
 import { Product } from "./Product";
-import type { Products } from "../../types/checkout";
+import type { Products } from "../../types/types";
 
 type ProductsGridProps = {
   products: Products;

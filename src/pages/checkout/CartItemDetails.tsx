@@ -2,7 +2,7 @@ import { api } from "../../services/api";
 import { formatMoney } from "../../utils/money";
 import { DeliveryOptions } from "./DeliveryOptions";
 import { UpdateButton } from "./UpdateButton";
-import type { CartItem, DeliveryOption } from "../../types/checkout";
+import type { CartItem, DeliveryOption } from "../../types/types";
 
 
 type CartItemDetailsProps = {

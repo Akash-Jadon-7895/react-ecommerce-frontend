@@ -1,6 +1,6 @@
 import { CartItemDetails } from "./CartItemDetails";
 import { DeliveryDate } from "./DeliveryDate";
-import type { Cart, DeliveryOption } from "../../types/checkout";
+import type { Cart, DeliveryOption } from "../../types/types";
 
 type OrderSummaryProps = {
   cart: Cart;

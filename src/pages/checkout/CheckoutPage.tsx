@@ -4,7 +4,7 @@ import { CheckoutHeader } from './CheckoutHeader';
 import { OrderSummary } from './OrderSummary';
 import { PaymentSummary } from './PaymentSummary';
 import './CheckoutPage.css';
-import type { Cart } from '../../types/checkout';
+import type { Cart } from '../../types/types';
 
 type CheckoutPageProps = {
   cart: Cart;

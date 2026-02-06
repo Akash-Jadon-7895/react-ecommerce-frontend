@@ -1,5 +1,5 @@
 import dayjs from "dayjs"
-import type { SelectedDeliveryOption } from "../../types/checkout";
+import type { SelectedDeliveryOption } from "../../types/types";
 
 type DeliveryDateProps = {
   selectDeliveryOption: SelectedDeliveryOption;

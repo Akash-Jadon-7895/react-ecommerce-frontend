@@ -1,7 +1,7 @@
 import { Header } from '../../components/Header';
 import { Link } from 'react-router';
 import './NotFoundPage.css';
-import type { Cart } from '../../types/checkout';
+import type { Cart } from '../../types/types';
 
 
 type NotFoundPageProps = {

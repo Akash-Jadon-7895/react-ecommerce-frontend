@@ -51,3 +51,22 @@ export type PaymentSummary = {
   taxCents: number;
   totalCostCents: number;
 }
+
+export type OrderProduct = {
+  productId: Product["id"];
+  quantity: number;
+  estimatedDeliveryTimeMs: number;
+  product: Product;
+};
+
+export type Order = {
+  id: string;
+  orderTimeMs: number;
+  totalCostCents: number;
+  products: OrderProduct[];
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type Orders = Order[];
+
