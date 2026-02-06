@@ -1,8 +1,14 @@
 import { Header } from '../../components/Header';
 import { Link } from 'react-router';
 import './NotFoundPage.css';
+import type { Cart } from '../../types/checkout';
 
-export function NotFoundPage({cart}) {
+
+type NotFoundPageProps = {
+  cart: Cart;
+};
+
+export function NotFoundPage({cart}: NotFoundPageProps) {
   return (
     <>
       <Header cart={cart} />

@@ -4,14 +4,13 @@ import LogoWhite from '../assets/images/logo-white.png';
 import MobileLogoWhite from '../assets/images/mobile-logo-white.png';
 import CartIcon from '../assets/images/icons/cart-icon.png';
 import SearchIcon from '../assets/images/icons/search-icon.png';
+import type { Cart } from '../types/checkout';
 
 type HeaderProps = {
-  cart: {
-  productId: string;
-  quantity: number;
-  deliveryOptionId: string;
-}[], onSearch: (searchTerm: string) => void
+  cart: Cart;
+  onSearch?: (searchTerm: string) => void;
 };
+
 
 
 export function Header({cart, onSearch}: HeaderProps) {
@@ -32,7 +31,7 @@ export function Header({cart, onSearch}: HeaderProps) {
       </div>
 
       <div className="middle-section">
-        <input className="search-bar" type="text" placeholder="Search" onChange={(e) => onSearch(e.target.value)} />
+        <input className="search-bar" type="text" placeholder="Search" onChange={(e) => onSearch && onSearch(e.target.value)} />
 
         <button className="search-button">
           <img className="search-icon" src={SearchIcon} />
