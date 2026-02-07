@@ -1,6 +1,11 @@
 import dayjs from "dayjs";
 
-export function TrackingProgress({deliveryTimeMs, orderTimeMs}) {
+type TrackingProgressProps = {
+  deliveryTimeMs: number;
+  orderTimeMs: number;
+};
+
+export function TrackingProgress({ deliveryTimeMs, orderTimeMs }: TrackingProgressProps) {
   const totalDeliveryTimeMs = deliveryTimeMs - orderTimeMs;
   const timePassedMs = dayjs().valueOf() - orderTimeMs;
   const deliveryPercent = (timePassedMs / totalDeliveryTimeMs) * 100;

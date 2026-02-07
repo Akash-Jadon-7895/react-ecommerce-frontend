@@ -6,17 +6,29 @@ import { useParams } from 'react-router';
 import dayjs from 'dayjs';
 import { TrackingProgress } from './TrackingProgress';
 import './TrackingPage.css'
+import type { Cart } from '../../types/types';
+import type { Order } from '../../types/types';
+
+
+type TrackingPageProps = {
+  cart: Cart;
+}
 
 
 
-export function TrackingPage({ cart }) {
+export function TrackingPage({ cart }: TrackingPageProps) {
   const { orderId, productId } = useParams();
-  const [order, setOrder] = useState(null);
+  const [order, setOrder] = useState<Order | null>(null);
 
   useEffect(() => {
+
     const fetchOrderData = async () => {
-      let response = await api.get(`/orders/${orderId}?expand=products`);
-      setOrder(response.data);
+      const { data } = await api.get<Order>(
+        `/orders/${orderId}?expand=products`
+      );
+
+      setOrder(data);
+
 
     }
 
@@ -26,9 +38,11 @@ export function TrackingPage({ cart }) {
 
   if (!order) return null;
 
-  const currentItem = order.products.find((item) => {
-    return item.product.id === productId;
-  });
+  const currentItem = order.products.find(
+    (item) => item.product.id === productId
+  );
+
+  if (!currentItem) return null;
 
   return (
     <>
