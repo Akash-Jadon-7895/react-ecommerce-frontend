@@ -5,13 +5,9 @@ import { CheckoutHeader } from './CheckoutHeader';
 
 describe('CheckoutHeader component', () => {
   it('displays checkout title and item count', () => {
-    const cart = {
-      totalQuantity: 3
-    };
-
     render(
       <MemoryRouter>
-        <CheckoutHeader cart={cart} />
+        <CheckoutHeader totalQuantity={3} />
       </MemoryRouter>
     );
 

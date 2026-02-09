@@ -18,10 +18,10 @@ vi.mock('./PaymentSummary', () => ({
 }));
 
 describe('CheckoutPage component', () => {
-  const cart = {
-    totalQuantity: 2,
-    items: []
-  };
+  const cart = [
+    { id: '1', quantity: 1, price: 100 },
+    { id: '2', quantity: 1, price: 200 },
+  ];
 
   let loadCart;
 
