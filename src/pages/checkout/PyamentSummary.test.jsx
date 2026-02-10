@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen, within } from '@testing-library/react';
+import { render, screen, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router';
 import { useLocation } from 'react-router';
@@ -87,7 +87,9 @@ describe('PaymentSummary component', () => {
 
     expect(api.post).toHaveBeenCalledWith('/orders');
     expect(loadCart).toHaveBeenCalled();
-    expect(screen.getByTestId('url-path'))
-      .toHaveTextContent('/orders');
+    await waitFor(() => {
+      expect(screen.getByTestId('url-path'))
+        .toHaveTextContent('/orders');
+    });
   });
 });
