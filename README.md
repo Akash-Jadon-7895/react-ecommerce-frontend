@@ -46,11 +46,13 @@ TypeScript migration is currently in progress.
 - ├── components/
 - ├── pages/
 - ├── utils/
+  ├── services/
+  ├── types/
 - ├── tests/
 - └── App.tsx
 
 
-⚠️ **Note:** Some files are still JavaScript and will be migrated to TypeScript.
+⚠️ **Note:** Some tests files are still JavaScript and will be migrated to TypeScript.
 
 ---
 
