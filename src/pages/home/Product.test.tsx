@@ -1,35 +1,38 @@
 import { it, expect, describe, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { api } from "../../services/api";
-import { Product } from './Product';
+import { apiMock } from "../../../tests/mocks/api.mock";
+import { Product as ProductComponent } from './Product';
+import type { Product } from '../../types/types';
 
-vi.mock('api');
+
 
 describe('Product component', () => {
-  let product;
+  let product: Product;
 
-  let loadcart;
+  let loadcart: () => Promise<void>;
 
   beforeEach(() => {
+    vi.clearAllMocks();
+
     product = {
       id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
       image: "images/products/athletic-cotton-socks-6-pairs.jpg",
       name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
-      rating: {
-        stars: 4.5,
-        count: 87
-      },
+      rating: { stars: 4.5, count: 87 },
       priceCents: 1090,
-      keywords: ["socks", "sports", "apparel"]
+      keywords: ["socks", "sports", "apparel"],
+      createdAt: "",
+      updatedAt: "",
     };
 
     loadcart = vi.fn();
   });
 
+
   it('displays the product details correctly', () => {
 
-    render(<Product product={product} loadCart={loadcart} />);
+    render(<ProductComponent product={product} loadCart={loadcart} />);
 
     expect(screen.getByText('Black and Gray Athletic Cotton Socks - 6 Pairs')).toBeInTheDocument();
 
@@ -46,13 +49,13 @@ describe('Product component', () => {
   });
   it('adds a product to the cart', async () => {
 
-    render(<Product product={product} loadCart={loadcart} />);
+    render(<ProductComponent product={product} loadCart={loadcart} />);
 
     const user = userEvent.setup();
     const addToCartButton = screen.getByTestId('add-to-cart-button');
     await user.click(addToCartButton);
 
-    expect(api.post).toHaveBeenCalledWith(
+    expect(apiMock.post).toHaveBeenCalledWith(
       '/cart-items',
       {
         productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
@@ -63,7 +66,7 @@ describe('Product component', () => {
   });
 
   it('sends selected quantity when adding to cart', async () => {
-    render(<Product product={product} loadCart={loadcart} />);
+    render(<ProductComponent product={product} loadCart={loadcart} />);
 
     const user = userEvent.setup();
 
@@ -74,7 +77,7 @@ describe('Product component', () => {
 
     await user.click(screen.getByTestId('add-to-cart-button'));
 
-    expect(api.post).toHaveBeenCalledWith(
+    expect(apiMock.post).toHaveBeenCalledWith(
       '/cart-items',
       {
         productId: product.id,
@@ -84,7 +87,7 @@ describe('Product component', () => {
   });
 
   it('shows added confirmation after adding to cart', async () => {
-    render(<Product product={product} loadCart={loadcart} />);
+    render(<ProductComponent product={product} loadCart={loadcart} />);
 
     const user = userEvent.setup();
     await user.click(screen.getByTestId('add-to-cart-button'));
