@@ -1,7 +1,7 @@
 import { it, expect, describe, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-
 import { OrderSummary } from './OrderSummary';
+import type { CartItem, DeliveryOption } from '../../types/types';
 
 vi.mock('./DeliveryDate', () => ({
   DeliveryDate: () => {
@@ -16,15 +16,65 @@ vi.mock('./CartItemDetails', () => ({
 }));
 
 describe('OrderSummary component', () => {
-  const cart = [
-    { productId: '1', deliveryOptionId: 'fast' },
-    { productId: '2', deliveryOptionId: 'slow' }
+  const cart: CartItem[] = [
+    {
+      id: 1,
+      productId: '1',
+      quantity: 1,
+      deliveryOptionId: 'fast',
+      product: {
+        id: '1',
+        name: 'Product 1',
+        image: '',
+        keywords: [],
+        priceCents: 100,
+        rating: { stars: 4, count: 10 },
+        createdAt: '',
+        updatedAt: '',
+      },
+      createdAt: '',
+      updatedAt: '',
+    },
+    {
+      id: 2,
+      productId: '2',
+      quantity: 1,
+      deliveryOptionId: 'slow',
+      product: {
+        id: '2',
+        name: 'Product 2',
+        image: '',
+        keywords: [],
+        priceCents: 200,
+        rating: { stars: 5, count: 5 },
+        createdAt: '',
+        updatedAt: '',
+      },
+      createdAt: '',
+      updatedAt: '',
+    },
   ];
 
-  const deliveryOptions = [
-    { id: 'fast', deliveryDays: 2 },
-    { id: 'slow', deliveryDays: 5 }
+
+  const deliveryOptions: DeliveryOption[] = [
+    {
+      id: 'fast',
+      deliveryDays: 2,
+      priceCents: 0,
+      estimatedDeliveryTimeMs: 1700000000000,
+      createdAt: '',
+      updatedAt: '',
+    },
+    {
+      id: 'slow',
+      deliveryDays: 5,
+      priceCents: 499,
+      estimatedDeliveryTimeMs: 1700500000000,
+      createdAt: '',
+      updatedAt: '',
+    },
   ];
+
 
   it('renders one cart item container per cart item', () => {
     render(

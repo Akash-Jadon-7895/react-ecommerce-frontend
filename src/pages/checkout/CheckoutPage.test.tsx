@@ -1,9 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { api } from "../../services/api";
+import { apiMock } from "../../../tests/mocks/api.mock";
 import { CheckoutPage } from './CheckoutPage';
 
-vi.mock('api');
 
 vi.mock('./CheckoutHeader', () => ({
   CheckoutHeader: () => <div data-testid="checkout-header" />
@@ -18,17 +17,49 @@ vi.mock('./PaymentSummary', () => ({
 }));
 
 describe('CheckoutPage component', () => {
+  const mockProduct = {
+    id: 'product-1',
+    name: 'Test Product',
+    image: 'test.jpg',
+    keywords: [],
+    priceCents: 100,
+    rating: {
+      stars: 4,
+      count: 10,
+    },
+    createdAt: '',
+    updatedAt: '',
+  };
+
   const cart = [
-    { id: '1', quantity: 1, price: 100 },
-    { id: '2', quantity: 1, price: 200 },
+    {
+      id: 1,
+      productId: 'product-1',
+      quantity: 1,
+      deliveryOptionId: 'option-1',
+      product: mockProduct,
+      createdAt: '',
+      updatedAt: '',
+    },
+    {
+      id: 2,
+      productId: 'product-1',
+      quantity: 1,
+      deliveryOptionId: 'option-1',
+      product: mockProduct,
+      createdAt: '',
+      updatedAt: '',
+    },
   ];
 
-  let loadCart;
+
+  let loadCart: () => Promise<void>;
 
   beforeEach(() => {
+    vi.clearAllMocks();
     loadCart = vi.fn();
 
-    api.get.mockImplementation((url) => {
+    apiMock.get.mockImplementation((url) => {
       if (url.startsWith('/delivery-options')) {
         return Promise.resolve({ data: [] });
       }
@@ -47,9 +78,9 @@ describe('CheckoutPage component', () => {
     expect(screen.getByTestId('order-summary')).toBeInTheDocument();
     expect(screen.getByTestId('payment-summary')).toBeInTheDocument();
 
-    expect(api.get).toHaveBeenCalledWith(
+    expect(apiMock.get).toHaveBeenCalledWith(
       '/delivery-options?expand=estimatedDeliveryTime'
     );
-    expect(api.get).toHaveBeenCalledWith('/payment-summary');
+    expect(apiMock.get).toHaveBeenCalledWith('/payment-summary');
   });
 });

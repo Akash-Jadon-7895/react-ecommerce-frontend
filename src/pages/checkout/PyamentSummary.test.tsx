@@ -3,12 +3,10 @@ import { render, screen, within, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router';
 import { useLocation } from 'react-router';
-import { api } from "../../services/api";
-
+import { apiMock } from "../../../tests/mocks/api.mock";
 import { PaymentSummary } from './PaymentSummary';
 import { formatMoney } from '../../utils/money';
 
-vi.mock('api');
 
 function Location() {
   const location = useLocation();
@@ -67,7 +65,7 @@ describe('PaymentSummary component', () => {
 
   it('places order, loads cart, and navigates to /orders', async () => {
     const loadCart = vi.fn();
-    api.post.mockResolvedValue({});
+    apiMock.post.mockResolvedValue({});
 
     render(
       <MemoryRouter initialEntries={['/checkout']}>
@@ -85,7 +83,7 @@ describe('PaymentSummary component', () => {
       screen.getByRole('button', { name: /place your order/i })
     );
 
-    expect(api.post).toHaveBeenCalledWith('/orders');
+    expect(apiMock.post).toHaveBeenCalledWith('/orders');
     expect(loadCart).toHaveBeenCalled();
     await waitFor(() => {
       expect(screen.getByTestId('url-path'))

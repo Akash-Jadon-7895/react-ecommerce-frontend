@@ -1,10 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { api } from "../../services/api";
+import { apiMock } from "../../../tests/mocks/api.mock";
 import { UpdateButton } from './UpdateButton';
 
-vi.mock('api');
 
 describe('UpdateButton component', () => {
   const cartItem = {
@@ -12,11 +11,11 @@ describe('UpdateButton component', () => {
     quantity: 2
   };
 
-  let loadCart;
+  let loadCart: () => Promise<void>;
 
   beforeEach(() => {
     loadCart = vi.fn();
-    api.put.mockResolvedValue({});
+    apiMock.put.mockResolvedValue({});
   });
 
   it('shows quantity and allows updating it', async () => {
@@ -36,7 +35,7 @@ describe('UpdateButton component', () => {
 
     await user.click(screen.getByText('Save'));
 
-    expect(api.put).toHaveBeenCalledWith(
+    expect(apiMock.put).toHaveBeenCalledWith(
       '/cart-items/product-1',
       { quantity: 5 }
     );

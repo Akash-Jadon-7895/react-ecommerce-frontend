@@ -1,10 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { api } from "../../services/api";
+import { apiMock } from "../../../tests/mocks/api.mock";
 import { CartItemDetails } from './CartItemDetails';
+import type { DeliveryOption } from '../../types/types'
 
-vi.mock('api');
+type DeliveryOptions = DeliveryOption[];
 
 vi.mock('./UpdateButton', () => ({
   UpdateButton: () => <div data-testid="update-button" />
@@ -15,23 +16,37 @@ vi.mock('./DeliveryOptions', () => ({
 }));
 
 describe('CartItemDetails component', () => {
+  const mockProduct = {
+    id: 'product-1',
+    name: 'Test Product',
+    image: 'test.jpg',
+    keywords: [],
+    priceCents: 1999,
+    rating: {
+      stars: 4,
+      count: 10,
+    },
+    createdAt: '',
+    updatedAt: '',
+  };
+
   const cartItem = {
+    id: 1,
     productId: 'product-1',
     quantity: 2,
     deliveryOptionId: 'option-1',
-    product: {
-      name: 'Test Product',
-      priceCents: 1999,
-      image: 'test.jpg'
-    }
+    product: mockProduct,
+    createdAt: '',
+    updatedAt: ''
   };
 
-  const deliveryOptions = [];
-  let loadCart;
+  const deliveryOptions: DeliveryOptions = [];
+  let loadCart: () => Promise<void>;
 
   beforeEach(() => {
+    vi.clearAllMocks();
     loadCart = vi.fn();
-    api.delete.mockResolvedValue({});
+    apiMock.delete.mockResolvedValue({});
   });
 
   it('renders product info and deletes item', async () => {
@@ -53,7 +68,7 @@ describe('CartItemDetails component', () => {
 
     await user.click(screen.getByText('Delete'));
 
-    expect(api.delete).toHaveBeenCalledWith(
+    expect(apiMock.delete).toHaveBeenCalledWith(
       '/cart-items/product-1'
     );
 

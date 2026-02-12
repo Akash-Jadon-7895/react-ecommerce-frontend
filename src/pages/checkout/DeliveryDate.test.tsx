@@ -4,12 +4,18 @@ import { DeliveryDate } from './DeliveryDate';
 
 describe('DeliveryDate component', () => {
   it('displays formatted delivery date', () => {
-    const selectDeliveryOption = {
-      estimatedDeliveryTimeMs: 1700000000000
+    const mockDeliveryOption = {
+      id: 'option-1',
+      deliveryDays: 5,
+      priceCents: 0,
+      estimatedDeliveryTimeMs: 1700000000000,
+      createdAt: '',
+      updatedAt: '',
     };
 
+
     render(
-      <DeliveryDate selectDeliveryOption={selectDeliveryOption} />
+      <DeliveryDate selectDeliveryOption={mockDeliveryOption} />
     );
 
     expect(screen.getByText(/delivery date:/i)).toBeInTheDocument();
