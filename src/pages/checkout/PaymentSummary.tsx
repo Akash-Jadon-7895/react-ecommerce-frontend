@@ -1,8 +1,14 @@
 import { api } from "../../services/api";
 import { useNavigate } from "react-router";
 import { formatMoney } from "../../utils/money";
+import type { PaymentSummary } from "../../types/types";
 
-export function PaymentSummary({ paymentSummary, loadCart }) {
+type PaymentSummaryProps = {
+  paymentSummary : PaymentSummary
+  loadCart: () => Promise<void>;
+};
+
+export function PaymentSummary({ paymentSummary, loadCart }: PaymentSummaryProps) {
   const navigate = useNavigate();
 
   const createOrder = async () => {

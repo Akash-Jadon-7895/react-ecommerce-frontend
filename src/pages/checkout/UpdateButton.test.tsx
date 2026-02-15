@@ -7,9 +7,23 @@ import { UpdateButton } from './UpdateButton';
 
 describe('UpdateButton component', () => {
   const cartItem = {
-    productId: 'product-1',
-    quantity: 2
-  };
+      id: 1,
+      productId: 'product-1',
+      quantity: 2,
+      deliveryOptionId: 'fast',
+      product: {
+        id: '1',
+        name: 'Product 1',
+        image: '',
+        keywords: [],
+        priceCents: 100,
+        rating: { stars: 4, count: 10 },
+        createdAt: '',
+        updatedAt: '',
+      },
+      createdAt: '',
+      updatedAt: '',
+    };
 
   let loadCart: () => Promise<void>;
 

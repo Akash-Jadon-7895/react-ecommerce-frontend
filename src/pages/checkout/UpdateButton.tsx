@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { api } from "../../services/api";
+import type { CartItem } from "../../types/types";
 
-export function UpdateButton({ cartItem, loadCart }) {
+type UpdateButtonProps = {
+  cartItem: CartItem;
+  loadCart: () => Promise<void>;
+};
+
+export function UpdateButton({ cartItem, loadCart }: UpdateButtonProps) {
   const [isUpdating, setIsUpdating] = useState(false);
   const [quantity, setQuantity] = useState(cartItem.quantity);
 
