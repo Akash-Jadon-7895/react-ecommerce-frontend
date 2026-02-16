@@ -1,33 +1,47 @@
 import { it, expect, describe, vi, beforeEach } from 'vitest';
-import { render, screen} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router';
-import { api } from "../../services/api";
+import { apiMock } from "../../../tests/mocks/api.mock";
 import dayjs from 'dayjs';
 import { OrderDetailsGrid } from './OrderDetailsGrid';
+import type { Order } from '../../types/types';
 
-vi.mock('api');
+
 
 describe('OrderDetailsGrid component', () => {
-  let order;
-  let loadCart;
+  let order: Order;
+  let loadCart: () => Promise<void>;
 
   beforeEach(() => {
     loadCart = vi.fn();
 
     order = {
       id: 'order-123',
+      orderTimeMs: Date.now(),
+      totalCostCents: 2000,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
       products: [
         {
+          productId: 'prod-1',
           quantity: 2,
           estimatedDeliveryTimeMs: dayjs('2026-02-10').valueOf(),
           product: {
             id: 'prod-1',
             name: 'Black and Gray Athletic Cotton Socks - 6 Pairs',
-            image: 'images/products/athletic-cotton-socks-6-pairs.jpg'
-          }
-        }
-      ]
+            image: 'images/products/athletic-cotton-socks-6-pairs.jpg',
+            keywords: [],
+            priceCents: 1000,
+            rating: {
+              stars: 4,
+              count: 100,
+            },
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+          },
+        },
+      ],
     };
   });
 
@@ -63,7 +77,7 @@ describe('OrderDetailsGrid component', () => {
     const user = userEvent.setup();
     await user.click(screen.getByRole('button', { name: /add to cart/i }));
 
-    expect(api.post).toHaveBeenCalledWith('/cart-items', {
+    expect(apiMock.post).toHaveBeenCalledWith('/cart-items', {
       productId: 'prod-1',
       quantity: 2
     });
