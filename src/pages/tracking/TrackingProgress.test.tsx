@@ -18,7 +18,13 @@ describe('TrackingProgress component', () => {
 
     vi.setSystemTime(dayjs('2026-01-02').valueOf());
 
-    render(<TrackingProgress deliveryTimeMs={deliveryTimeMs} orderTimeMs={orderTimeMs} />);
+    render(
+      <TrackingProgress
+        deliveryTimeMs={deliveryTimeMs}
+        orderTimeMs={orderTimeMs}
+      />
+    );
+
     expect(screen.getByText('Preparing')).toHaveClass('current-status');
   });
 
@@ -28,7 +34,13 @@ describe('TrackingProgress component', () => {
 
     vi.setSystemTime(dayjs('2026-01-05').valueOf());
 
-    render(<TrackingProgress deliveryTimeMs={deliveryTimeMs} orderTimeMs={orderTimeMs} />);
+    render(
+      <TrackingProgress
+        deliveryTimeMs={deliveryTimeMs}
+        orderTimeMs={orderTimeMs}
+      />
+    );
+
     expect(screen.getByText('Shipped')).toHaveClass('current-status');
   });
 
@@ -38,7 +50,13 @@ describe('TrackingProgress component', () => {
 
     vi.setSystemTime(dayjs('2026-01-12').valueOf());
 
-    render(<TrackingProgress deliveryTimeMs={deliveryTimeMs} orderTimeMs={orderTimeMs} />);
+    render(
+      <TrackingProgress
+        deliveryTimeMs={deliveryTimeMs}
+        orderTimeMs={orderTimeMs}
+      />
+    );
+
     expect(screen.getByText('Delivered')).toHaveClass('current-status');
   });
 
@@ -48,9 +66,20 @@ describe('TrackingProgress component', () => {
 
     vi.setSystemTime(dayjs('2026-01-05').valueOf());
 
-    render(<TrackingProgress deliveryTimeMs={deliveryTimeMs} orderTimeMs={orderTimeMs} />);
-    const progressBar = document.querySelector('.progress-bar');
-    const width = parseFloat(progressBar.style.width);
+    render(
+      <TrackingProgress
+        deliveryTimeMs={deliveryTimeMs}
+        orderTimeMs={orderTimeMs}
+      />
+    );
+
+    const progressBar = document.querySelector(
+      '.progress-bar'
+    ) as HTMLElement | null;
+
+    expect(progressBar).not.toBeNull();
+
+    const width = parseFloat(progressBar!.style.width);
 
     expect(width).toBeGreaterThan(0);
     expect(width).toBeLessThanOrEqual(100);

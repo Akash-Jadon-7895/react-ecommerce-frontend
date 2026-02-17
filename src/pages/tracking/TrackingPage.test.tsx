@@ -1,15 +1,34 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
-import { api } from "../../services/api";
+import { apiMock } from '../../../tests/mocks/api.mock';
 import { MemoryRouter, Route, Routes } from 'react-router';
 import { TrackingPage } from './TrackingPage';
+import type { Cart } from '../../types/types';
 
-vi.mock('api');
 
 describe('TrackingPage component', () => {
 
-  const cart = [
-    { id: 'p1', quantity: 1 }
+  const mockProduct = {
+    id: 'p1',
+    name: 'Test Product',
+    image: 'images/products/test-product.jpg',
+    keywords: [],
+    priceCents: 1000,
+    rating: { stars: 5, count: 10 },
+    createdAt: '',
+    updatedAt: '',
+  };
+
+  const cart: Cart = [
+    {
+      id: 1,
+      productId: 'p1',
+      quantity: 1,
+      deliveryOptionId: '1',
+      product: mockProduct,
+      createdAt: '',
+      updatedAt: '',
+    },
   ];
 
   const order = {
@@ -29,7 +48,7 @@ describe('TrackingPage component', () => {
   };
 
   beforeEach(() => {
-    api.get.mockResolvedValue({ data: order });
+    apiMock.get.mockResolvedValue({ data: order });
   });
 
   it('renders tracking page with product info and progress', async () => {
@@ -42,7 +61,7 @@ describe('TrackingPage component', () => {
     );
 
     await waitFor(() => {
-      expect(api.get).toHaveBeenCalledWith('/orders/order-1?expand=products');
+      expect(apiMock.get).toHaveBeenCalledWith('/orders/order-1?expand=products');
     });
 
     expect(screen.getByText('Test Product')).toBeInTheDocument();
